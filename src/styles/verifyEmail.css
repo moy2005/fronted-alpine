@@ -1,0 +1,285 @@
+/* Verify Email Page Styles */
+:root {
+    --primary: #3e4095;
+    --primary-dark: #2d2e6f;
+    --primary-light: #5f61b5;
+    --secondary: #f26522;
+    --secondary-light: #f5834e;
+    --secondary-dark: #d54e0f;
+    --white: #ffffff;
+    --black: #1a1a1a;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-pill: 50px;
+    --transition: all 0.3s ease;
+  }
+  
+  /* Base Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  /* Verification Page Layout */
+  .verify-page {
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .verify-content {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background-color: var(--white);
+  }
+  
+  .verify-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-image: url('https://img1.wallspic.com/crops/7/7/3/8/5/158377/158377-montana-carrauntoohil-ambiente-naturaleza-paisaje_natural-3840x2160.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .verify-background .verify-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(62, 64, 149, 0.9), rgba(242, 101, 34, 0.8));
+  }
+  
+  /* Verify Card */
+  .verify-card {
+    width: 450px;
+    padding: 40px;
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+  
+  .verify-header {
+    margin-bottom: 30px;
+  }
+  
+  .verify-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+  
+  .verify-logo i {
+    font-size: 28px;
+    color: var(--secondary);
+    margin-right: 10px;
+  }
+  
+  .verify-logo span {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+  }
+  
+  .verify-icon {
+    background-color: var(--primary-light);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--white);
+    font-size: 32px;
+  }
+  
+  .verify-header h1 {
+    font-size: 26px;
+    color: var(--gray-900);
+    margin-bottom: 15px;
+  }
+  
+  .verify-header p {
+    color: var(--gray-600);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .verify-header strong {
+    color: var(--gray-800);
+  }
+  
+  /* Form Layout */
+  .verify-form {
+    margin-bottom: 25px;
+  }
+  
+  .verify-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .verify-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--gray-700);
+  }
+  
+  .verify-input-container {
+    position: relative;
+  }
+  
+  .verify-input {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition);
+    outline: none;
+    background-color: var(--gray-100);
+    text-align: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  
+  .verify-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(62, 64, 149, 0.1);
+    background-color: var(--white);
+  }
+  
+  .verify-input::placeholder {
+    color: var(--gray-500);
+    font-weight: normal;
+    letter-spacing: normal;
+  }
+  
+  .verify-hint {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--gray-600);
+    font-style: italic;
+  }
+  
+  /* Button Styling */
+  .verify-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--secondary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    gap: 10px;
+  }
+  
+  .verify-button:hover {
+    background-color: var(--secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .verify-button svg {
+    font-size: 18px;
+    transition: var(--transition);
+  }
+  
+  .verify-button:hover svg {
+    transform: scale(1.1);
+  }
+  
+  /* Footer */
+  .verify-footer {
+    margin-top: 20px;
+  }
+  
+  .verify-resend {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: underline;
+  }
+  
+  .verify-resend:hover {
+    color: var(--secondary);
+  }
+  
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .verify-content {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  
+    .verify-background {
+      width: 100%;
+    }
+    
+    .verify-card {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .verify-card {
+      width: 90%;
+      padding: 30px 20px;
+    }
+    
+    .verify-icon {
+      width: 70px;
+      height: 70px;
+      font-size: 28px;
+    }
+    
+    .verify-header h1 {
+      font-size: 22px;
+    }
+    
+    .verify-button {
+      padding: 12px;
+      font-size: 15px;
+    }
+  }

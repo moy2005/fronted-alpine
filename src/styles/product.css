@@ -1,0 +1,417 @@
+/* Contenedor principal */
+.product-detail-container {
+    display: flex;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+
+/* Tarjeta de producto */
+.product-detail-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 1200px;
+    animation: fadeIn 0.8s ease-in-out;
+    overflow: hidden;
+}
+
+/* Sección principal: imagen y detalles */
+.product-main-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 40px;
+}
+
+/* Contenedor de imágenes */
+.product-images-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Imagen principal */
+.product-main-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    margin-bottom: 15px;
+    cursor: zoom-in;
+}
+
+.product-main-image:hover {
+    transform: scale(1.02);
+}
+
+/* Galería de imágenes */
+.product-image-gallery {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.product-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.product-thumbnail:hover {
+    transform: translateY(-3px);
+}
+
+.product-thumbnail.active {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+}
+
+/* Información del producto */
+.product-info {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título del producto */
+.product-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #212529;
+    margin-bottom: 15px;
+}
+
+/* Calificación del producto */
+.product-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stars {
+    display: flex;
+    margin-right: 10px;
+}
+
+.star {
+    color: #ffc107;
+    font-size: 1.2rem;
+    margin-right: 2px;
+}
+
+.rating-count {
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+/* Descripción del producto */
+.product-description {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Precio y stock */
+.product-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.product-stock {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.stock-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.in-stock {
+    background-color: #28a745;
+}
+
+.low-stock {
+    background-color: #ffc107;
+}
+
+.out-of-stock {
+    background-color: #dc3545;
+}
+
+/* Detalles adicionales */
+.product-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.detail-item {
+    background: #f3f3f3;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+/* Botones de acción */
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.cart-button {
+    background-color: #28a745;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.cart-button:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.buy-button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.buy-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección de reseñas */
+.reviews-section {
+    padding: 30px;
+    border-top: 1px solid #e9ecef;
+}
+
+.reviews-title {
+    font-size: 1.6rem;
+    color: #212529;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.reviews-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.average-rating {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #212529;
+    margin-right: 20px;
+}
+
+.reviews-count {
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+/* Lista de reseñas */
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.review-item {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 20px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.review-date {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.review-rating {
+    color: #ffc107;
+    margin-bottom: 10px;
+}
+
+.review-comment {
+    color: #495057;
+    line-height: 1.5;
+}
+
+/* Sección "Escribir una reseña" */
+.write-review {
+    margin-top: 30px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.write-review-title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #212529;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.rating-input {
+    display: flex;
+    gap: 5px;
+}
+
+.rating-star {
+    font-size: 1.5rem;
+    color: #dee2e6;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.rating-star.active, .rating-star:hover {
+    color: #ffc107;
+}
+
+.comment-input {
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.submit-review {
+    background-color: #212529;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+}
+
+.submit-review:hover {
+    background-color: #343a40;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Agregar una animación suave */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Diseño Responsivo */
+@media (max-width: 992px) {
+    .product-main-section {
+        flex-direction: column;
+    }
+    
+    .product-main-image {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-detail-container {
+        padding: 20px 10px;
+    }
+    
+    .product-main-section {
+        padding: 20px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .reviews-section {
+        padding: 20px;
+    }
+    
+    .product-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .product-price {
+        font-size: 1.5rem;
+    }
+}
