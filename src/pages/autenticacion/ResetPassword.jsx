@@ -24,7 +24,7 @@ const ResetPassword = () => {
             }
     
             try {
-                const response = await fetch(`http://localhost:4000/api/verifyTokenReset`, {
+                const response = await fetch(`https://alpine-gear.vercel.app/api/verifyTokenReset`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

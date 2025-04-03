@@ -21,7 +21,7 @@ const ForgotPassword = () => {
         setIsSubmitting(true);
         
         try {
-            const response = await fetch('http://localhost:4000/api/verify-keyword', {
+            const response = await fetch('https://alpine-gear.vercel.app/api/verify-keyword', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, secretWord }),
