@@ -2,12 +2,11 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: 'https://alpine-gear.vercel.app/api',
-    withCredentials: true, // Esto es CRUCIAL para enviar cookies
+    withCredentials: true,
     headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+      'Content-Type': 'application/json'
     }
-});
+  });
 
 // Interceptor de solicitud MODIFICADO
 instance.interceptors.request.use(

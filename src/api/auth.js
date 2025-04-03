@@ -1,4 +1,5 @@
 import axios from './axios'
+import instance from './axios'
 
 export const registerRequest = async (user) => {
     try {
@@ -42,14 +43,15 @@ export const verifyTokenRequest = async () => {
 
 
 export const verifyEmailRequest = async (email, code) => {
-    return await axios.post(
-        "https://alpine-gear.vercel.app/api/verify-email-code",
-        { email, code },
-        { 
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    );
-};
+    try {
+      const response = await instance.post('/verify-email-code', { email, code });
+      return response;
+    } catch (error) {
+      console.error('Error details:', {
+        request: error.config,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+      throw error;
+    }
+  };
