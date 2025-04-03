@@ -3,9 +3,13 @@ import instance from './axios'
 
 export const registerRequest = async (user) => {
     try {
-        const response = await axios.post('/register', user);
+        const response = await instance.post('/register', user);
         return response;
     } catch (error) {
+        console.error('Error en registerRequest:', {
+            status: error.response?.status,
+            data: error.response?.data
+        });
         throw error;
     }
 };
@@ -42,16 +46,18 @@ export const verifyTokenRequest = async () => {
 };
 
 
-export const verifyEmailRequest = async (email, code) => {
+export const verifyEmailRequest = async (email, code, tempToken) => {
     try {
-      const response = await instance.post('/verify-email-code', { email, code });
-      return response;
+        const response = await instance.post(
+            '/verify-email-code', 
+            { email, code, tempToken }
+        );
+        return response;
     } catch (error) {
-      console.error('Error details:', {
-        request: error.config,
-        response: error.response?.data,
-        status: error.response?.status
-      });
-      throw error;
+        console.error('Error en verifyEmailRequest:', {
+            status: error.response?.status,
+            data: error.response?.data
+        });
+        throw error;
     }
-  };
+};

@@ -25,43 +25,80 @@ export const AuthProvider = ({ children }) => {
     const signup = async (user) => {
         try {
             const res = await registerRequest(user);
+            
             if (res.data.success) {
-                setUser(null);  
-                return { success: true };
+                // Guardar el token temporal para verificación
+                localStorage.setItem('tempToken', res.data.tempToken);
+                
+                return { 
+                    success: true,
+                    tempToken: res.data.tempToken,
+                    userId: res.data.userId
+                };
             }
         } catch (error) {
-            if (Array.isArray(error.response.data)) {
-                setErrors(error.response.data);
-            } else {
-                setErrors([error.response.data.message]);
+            let errorMessage = "Error al registrar";
+            
+            if (error.response?.data?.code === "EMAIL_IN_USE") {
+                errorMessage = "El correo ya está registrado";
+            } else if (error.response?.data?.code === "MISSING_FIELDS") {
+                errorMessage = "Todos los campos son requeridos";
             }
+            
+            setErrors([errorMessage]);
+            return { success: false, error: errorMessage };
         }
     };
+    
 
 
     const verifyEmail = async (email, code) => {
         try {
-            const res = await verifyEmailRequest(email, code);
+            const tempToken = localStorage.getItem('tempToken');
+            if (!tempToken) {
+                throw new Error("No se encontró token de verificación");
+            }
+    
+            const res = await verifyEmailRequest(email, code, tempToken);
             
             if (res.data?.success) {
-                return { success: true, message: "Email verificado exitosamente" };
+                // Guardar el token definitivo
+                localStorage.setItem('token', res.data.token);
+                localStorage.removeItem('tempToken'); // Limpiar token temporal
+                
+                setUser(res.data.user);
+                setIsAuthenticated(true);
+                
+                return { 
+                    success: true, 
+                    message: "Email verificado exitosamente",
+                    token: res.data.token
+                };
             }
             
-            return { success: false, message: res.data?.message || "Código incorrecto" };
+            return { 
+                success: false, 
+                message: res.data?.message || "Código incorrecto" 
+            };
             
         } catch (error) {
-            console.error("Error en verifyEmail:", error.response?.data || error.message);
+            let message = 'Error al verificar el código';
+            
+            if (error.response?.data?.code === "INVALID_CODE") {
+                message = "Código incorrecto";
+            } else if (error.response?.data?.code === "CODE_EXPIRED") {
+                message = "El código ha expirado, por favor regístrese nuevamente";
+            } else if (error.message.includes("jwt expired")) {
+                message = "Tiempo de verificación agotado, por favor regístrese nuevamente";
+            }
             
             return {
                 success: false,
-                message: error.response?.data?.message || 
-                       (error.response?.status === 400 ? 
-                        "Sesión expirada, intenta nuevamente" : 
-                        "Error al verificar el código")
+                message
             };
         }
     };
-
+    
 
 
     const verifyToken = async () => {

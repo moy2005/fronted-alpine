@@ -2,32 +2,31 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: 'https://alpine-gear.vercel.app/api',
-    withCredentials: true,
     headers: {
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     }
-  });
+});
+
 
 // Interceptor de solicitud MODIFICADO
 instance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem("token");
-        console.log("Configuración de la solicitud:", {
-            url: config.url,
-            withCredentials: config.withCredentials,
-            headers: config.headers
-        });
+        // Primero intenta con el token normal
+        const token = localStorage.getItem('token');
         
-        if (token) {
+        // Si no hay token normal, usa el temporal (para verify-email-code)
+        if (!token && config.url.includes('verify-email-code')) {
+            const tempToken = localStorage.getItem('tempToken');
+            if (tempToken) {
+                config.headers.Authorization = `Bearer ${tempToken}`;
+            }
+        } else if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
         
-        // Asegurar que withCredentials no se sobreescriba
-        config.withCredentials = true;
         return config;
     },
     (error) => {
-        console.error("Error en interceptor de solicitud:", error);
         return Promise.reject(error);
     }
 );

@@ -51,18 +51,25 @@ function RegisterPage() {
   }, [isAuthenticated]);
 
   // Modificar el onSubmit para usar toastify
-  const onSubmit = async (values) => {
-    try {
-      const result = await signup(values);
-      if (result?.success) {
-        toast.success("¡Registro exitoso! Verifica tu correo electrónico.");
-        navigate("/verify", { state: { email: values.email } });
-      }
-    } catch (error) {
-      console.error("Error durante el registro:", error);
-      toast.error("Ocurrió un error durante el registro. Inténtalo de nuevo.");
+// En el onSubmit del RegisterPage
+const onSubmit = async (values) => {
+  try {
+    const result = await signup(values);
+    if (result?.success) {
+      toast.success("¡Registro exitoso! Verifica tu correo electrónico.");
+      // Pasar tanto el email como el tempToken a la página de verificación
+      navigate("/verify", { 
+        state: { 
+          email: values.email,
+          tempToken: result.tempToken 
+        } 
+      });
     }
-  };
+  } catch (error) {
+    console.error("Error durante el registro:", error);
+    toast.error(error.message || "Ocurrió un error durante el registro. Inténtalo de nuevo.");
+  }
+};
 
   // Funciones de validación secuencial
   const getPasswordFirstError = (password) => {
