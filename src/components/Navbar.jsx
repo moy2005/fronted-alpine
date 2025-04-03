@@ -226,7 +226,7 @@ function Navbar() {
                   <ul>
                     <li><Link to="/cliente/profile" onClick={() => setIsMenuOpen(false)}>Profile</Link></li>
                     <li><Link to="/orders" onClick={() => setIsMenuOpen(false)}>My Orders</Link></li>
-                    <li><Link to="/iot-device" onClick={() => setIsMenuOpen(false)}>My Devices</Link></li>
+                  
                   </ul>
                 </li>
               )}
