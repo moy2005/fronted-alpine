@@ -41,53 +41,23 @@ export const AuthProvider = ({ children }) => {
 
     const verifyEmail = async (email, code) => {
         try {
-            // Validaciones básicas antes de hacer la petición
-            if (!email || !code) {
-                return {
-                    success: false,
-                    message: "Email y código son requeridos"
-                };
-            }
-
             const res = await verifyEmailRequest(email, code);
-
-            // Log para debugging
-            console.log("Respuesta del servidor en verifyEmail:", res?.data);
-
-            // Verificación más robusta de la respuesta
-            if (res?.data?.success) {
-                return {
-                    success: true,
-                    message: res.data.message || "Email verificado exitosamente"
-                };
+            
+            if (res.data?.success) {
+                return { success: true, message: "Email verificado exitosamente" };
             }
-
-            // Si no hay éxito pero hay respuesta
-            return {
-                success: false,
-                message: res?.data?.message || "Código incorrecto o expirado"
-            };
-
+            
+            return { success: false, message: res.data?.message || "Código incorrecto" };
+            
         } catch (error) {
-            // Log detallado del error
-            console.error("Error en verifyEmail:", {
-                responseData: error.response?.data,
-                message: error.message,
-                status: error.response?.status
-            });
-
-            // Manejo específico según el código de error
-            if (error.response?.status === 400) {
-                return {
-                    success: false,
-                    message: "Código inválido o sesión expirada"
-                };
-            }
-
-            // Error general
+            console.error("Error en verifyEmail:", error.response?.data || error.message);
+            
             return {
                 success: false,
-                message: error.response?.data?.message || "Error al verificar el código"
+                message: error.response?.data?.message || 
+                       (error.response?.status === 400 ? 
+                        "Sesión expirada, intenta nuevamente" : 
+                        "Error al verificar el código")
             };
         }
     };
