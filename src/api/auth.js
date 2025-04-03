@@ -42,7 +42,7 @@ export const verifyTokenRequest = async () => {
 
 export const verifyEmailRequest = async (email, code) => {
     return await axios.post(
-        "http://localhost:4000/api/verify-email-code",
+        "https://alpine-gear.vercel.app/api/verify-email-code",
         { email, code },
         { withCredentials: true }  // Habilitar el envío de cookies
     );
