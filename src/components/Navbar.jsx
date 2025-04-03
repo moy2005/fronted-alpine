@@ -95,9 +95,7 @@ function Navbar() {
             <nav className="desktop-nav">
               <ul>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/products">Productos</Link></li>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/contact">Contactos</Link></li>
+              
                 {hasRole("admin") && (
                   <li className="admin-nav-item">
                     <Link to="/admin">Admin</Link>

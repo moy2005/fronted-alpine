@@ -228,9 +228,7 @@ const ResetPassword = () => {
                             <p>El enlace para restablecer tu contraseña ha expirado o no es válido.</p>
                         </div>
                         
-                        <Link to="/forgot-password" className="reset-password-button reset-password-retry">
-                            Solicitar nuevo enlace
-                        </Link>
+                     
                         
                         <div className="reset-password-footer">
                             <Link to="/login" className="reset-password-back-link">
