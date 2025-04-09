@@ -1,23 +1,28 @@
-import { useForm } from 'react-hook-form';
-import { useAuth } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../../styles/login.css';
+import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../../styles/login.css";
 
 function LoginPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { signin, errors: signinErrors, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       const result = await signin(data);
-      
+
       // Captura específicamente el error de contraseña incorrecta
       if (result?.error) {
-        toast.error(result.error, { 
+        toast.error(result.error, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -28,16 +33,24 @@ function LoginPage() {
       }
     } catch (error) {
       // Manejo de errores inesperados
-      console.error('Error inesperado:', error);
+      console.error("Error inesperado:", error);
     }
   });
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+    const passwordInput = document.getElementById('password');
+    if (passwordInput) {
+      passwordInput.type = showPassword ? 'password' : 'text';
+    }
+  };
+  
   useEffect(() => {
     if (signinErrors.length > 0) {
-      signinErrors.forEach(error => {
+      signinErrors.forEach((error) => {
         // Filtra el error de contraseña incorrecta para no duplicarlo
-        if (!error.includes('Contraseña incorrecta')) {
-          toast.error(error, { 
+        if (!error.includes("Contraseña incorrecta")) {
+          toast.error(error, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -52,7 +65,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      toast.success("Inicio de sesión exitoso!", { 
+      toast.success("Inicio de sesión exitoso!", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -61,10 +74,10 @@ function LoginPage() {
         draggable: true,
       });
       switch (user.role) {
-        case 'admin':
+        case "admin":
           navigate("/admin/profile-admin");
           break;
-        case 'cliente':
+        case "cliente":
           navigate("/cliente/profile");
           break;
         default:
@@ -85,47 +98,61 @@ function LoginPage() {
             <h1>Iniciar Sesión</h1>
             <p>Bienvenido de nuevo. Accede a tu cuenta para continuar.</p>
           </div>
-          
+
+
+
           <form className="auth-form" onSubmit={onSubmit}>
             <div className="form-group">
               <label htmlFor="email">Correo electrónico</label>
               <div className="input-wrapper">
+                <i className="fas fa-envelope input-icon"></i>
                 <input
                   type="email"
                   id="email"
-                  {...register("email", { 
+                  {...register("email", {
                     required: "El correo es requerido",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Correo electrónico inválido"
-                    }
+                      message: "Correo electrónico inválido",
+                    },
                   })}
                   placeholder="tucorreo@ejemplo.com"
                 />
               </div>
-              {errors.email && <span className="error-message">{errors.email.message}</span>}
+              {errors.email && (
+                <span className="error-message">{errors.email.message}</span>
+              )}
             </div>
 
             <div className="form-group">
               <div className="label-row">
                 <label htmlFor="password">Contraseña</label>
-                <Link to="/forgot-password" className="forgot-link">¿Olvidaste tu contraseña?</Link>
+                <Link to="/forgot-password" className="forgot-link">
+                  ¿Olvidaste tu contraseña?
+                </Link>
               </div>
               <div className="input-wrapper">
+                <i className="fas fa-lock input-icon"></i>
                 <input
                   type="password"
                   id="password"
-                  {...register("password", { 
+                  {...register("password", {
                     required: "La contraseña es requerida",
                     minLength: {
                       value: 6,
-                      message: "La contraseña debe tener al menos 6 caracteres"
-                    }
+                      message: "La contraseña debe tener al menos 6 caracteres",
+                    },
                   })}
                   placeholder="Contraseña"
                 />
+                <i
+                  className="fas fa-eye password-toggle"
+                  onClick={togglePasswordVisibility}
+                ></i>
               </div>
-              {errors.password && <span className="error-message">{errors.password.message}</span>}
+              {errors.password && (
+                <span className="error-message">{errors.password.message}</span>
+              )}
             </div>
 
             <button type="submit" className="auth-button">
@@ -135,11 +162,16 @@ function LoginPage() {
           </form>
 
           <div className="auth-footer">
-            <p>¿No tienes una cuenta? <Link to="/register" className="register-link">Regístrate ahora</Link></p>
+            <p>
+              ¿No tienes una cuenta?{" "}
+              <Link to="/register" className="register-link">
+                Regístrate ahora
+              </Link>
+            </p>
           </div>
         </div>
       </div>
-      
+
       <div className="auth-background">
         <div className="overlay"></div>
       </div>
