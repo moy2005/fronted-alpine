@@ -1,36 +1,46 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { FaEnvelope, FaKey, FaArrowLeft } from 'react-icons/fa';
+import { FaKey, FaArrowLeft } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './../../styles/forgotPassword.css';
-import { checkEmailRequest } from '../../api/auth';
+import { verifyKeywordRequest } from '../../api/auth.js';
 
-const ForgotPassword = () => {
+const PreguntaSecreta = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
+    const location = useLocation();
+    const { email } = location.state || {};
+    const [secretWord, setSecretWord] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Si no hay email, redireccionar a la página de recuperación
+    if (!email) {
+        navigate('/forgot-password');
+        return null;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        if (!email) {
-            toast.error('Por favor ingresa tu correo electrónico');
+        if (!secretWord) {
+            toast.error('Por favor ingresa tu palabra secreta');
             return;
         }
 
         setIsSubmitting(true);
         
         try {
-            // Verificamos si el email existe usando el servicio API
-            const response = await checkEmailRequest(email);
+            // Usamos la función del servicio API
+            const response = await verifyKeywordRequest(email, secretWord);
             
             if (response.data.success) {
-                // Si el email existe, redirigir a la página de pregunta secreta
-                navigate('/pregunta-secreta', { state: { email } });
+                toast.success(response.data.message || 'Se ha enviado un correo con instrucciones para recuperar tu contraseña');
+                // Limpiar el campo de palabra secreta
+                setSecretWord('');
+                // Mantener al usuario en esta página para que vea el mensaje de éxito
             } else {
-                toast.error(response.data.message || 'Correo electrónico no encontrado.');
+                toast.error(response.data.message || 'Palabra secreta incorrecta. Inténtalo de nuevo.');
             }
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Error de conexión. Verifica tu conexión a internet.';
@@ -52,21 +62,22 @@ const ForgotPassword = () => {
                         <div className="forgot-password-icon">
                             <FaKey />
                         </div>
-                        <h1>Recuperar Contraseña</h1>
-                        <p>Ingresa tu correo electrónico para comenzar el proceso de recuperación</p>
+                        <h1>Verificación de Seguridad</h1>
+                        <p>Ingresa tu palabra secreta para continuar con la recuperación de contraseña</p>
+                        <p className="email-display">Correo: {email}</p>
                     </div>
                     
                     <form onSubmit={handleSubmit} className="forgot-password-form">
                         <div className="forgot-password-group">
-                            <label htmlFor="email">Correo electrónico</label>
+                            <label htmlFor="secretWord">Palabra Secreta</label>
                             <div className="forgot-password-input-container">
-                                <FaEnvelope className="forgot-password-input-icon" />
+                                <FaKey className="forgot-password-input-icon" />
                                 <input
-                                    type="email"
-                                    id="email"
-                                    placeholder="tucorreo@ejemplo.com"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    type="password"
+                                    id="secretWord"
+                                    placeholder="Tu palabra secreta"
+                                    value={secretWord}
+                                    onChange={(e) => setSecretWord(e.target.value)}
                                     className="forgot-password-input"
                                     required
                                 />
@@ -78,14 +89,14 @@ const ForgotPassword = () => {
                             className="forgot-password-button"
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? 'Verificando...' : 'Continuar'}
+                            {isSubmitting ? 'Verificando...' : 'Verificar Palabra Secreta'}
                         </button>
                     </form>
                     
                     <div className="forgot-password-footer">
-                        <Link to="/login" className="forgot-password-back-link">
+                        <Link to="/forgot-password" className="forgot-password-back-link">
                             <FaArrowLeft />
-                            Volver al inicio de sesión
+                            Volver
                         </Link>
                     </div>
                 </div>
@@ -107,5 +118,4 @@ const ForgotPassword = () => {
     );
 };
 
-export default ForgotPassword;
-
+export default PreguntaSecreta;

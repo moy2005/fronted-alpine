@@ -41,6 +41,7 @@ import AccessDeniedPage from './pages/AccessDeniedPage.jsx'
 import UpdateProductForm from './pages/admin/UpdateProductForm.jsx';
 import Footer from './pages/publica/Footer.jsx';
 import ProductCreate from './pages/admin/ProductCreate.jsx';
+import PreguntaSecreta from './pages/autenticacion/PreguntaSecreta.jsx';
 
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/reset-password/:token" element={<ResetPassword />} />
                   <Route path="/verify" element={<VerificationPage />} />
+                  <Route path="/pregunta-secreta" element={<PreguntaSecreta />} />
 
                   {/* 📌 Rutas Protegidas */}
                   <Route element={<ProtectedRoute allowedRoles={['cliente']} />}>

@@ -61,3 +61,29 @@ export const verifyEmailRequest = async (email, code, tempToken) => {
         throw error;
     }
 };
+
+export const checkEmailRequest = async (email) => {
+    try {
+        const response = await instance.post('/check-email', { email });
+        return response;
+    } catch (error) {
+        console.error('Error en checkEmailRequest:', {
+            status: error.response?.status,
+            data: error.response?.data
+        });
+        throw error;
+    }
+};
+
+export const verifyKeywordRequest = async (email, secretWord) => {
+    try {
+        const response = await instance.post('/verify-keyword', { email, secretWord });
+        return response;
+    } catch (error) {
+        console.error('Error en verifyKeywordRequest:', {
+            status: error.response?.status,
+            data: error.response?.data
+        });
+        throw error;
+    }
+};
